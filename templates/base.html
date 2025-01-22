@@ -1,0 +1,111 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+                Brew & Bloom - Coffee Shop Experience
+            {% endblock head_title %}
+        </title>
+        {% block extra_head %}
+        {% endblock extra_head %}
+    </head>
+    <body style="font-family: 'Arial', sans-serif; background-color: #f4f4f4; color: #333;">
+        <header style="background-color: #3e2723; color: #fff; padding: 20px 0;">
+            <h1 style="text-align: center;">Welcome to Brew & Bloom Café!</h1>
+            <!-- PUT IMAGE HERE: Logo of Brew & Bloom Coffee Shop -->
+        </header>
+
+        {% block body %}
+            {% if messages %}
+                <div style="background-color: #ffcc00; padding: 10px; margin: 10px 0;">
+                    <strong>{% trans "Messages:" %}</strong>
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div style="text-align: center; margin: 30px 0;">
+                <strong>{% trans "Our Coffee Menu:" %}</strong>
+                <ul style="list-style: none; padding: 0;">
+                    {% if user.is_authenticated %}
+                        <!-- Display user-specific options if authenticated -->
+                        {% url 'account_email' as email_url_ %}
+                        {% if email_url_ %}
+                            <li>
+                                <a href="{{ email_url_ }}" style="color: #3e2723;">{% trans "Change Email" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'account_change_password' as change_password_url_ %}
+                        {% if change_password_url_ %}
+                            <li>
+                                <a href="{{ change_password_url_ }}" style="color: #3e2723;">{% trans "Change Password" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'socialaccount_connections' as connections_url_ %}
+                        {% if connections_url_ %}
+                            <li>
+                                <a href="{{ connections_url_ }}" style="color: #3e2723;">{% trans "Account Connections" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'mfa_index' as mfa_url_ %}
+                        {% if mfa_url_ %}
+                            <li>
+                                <a href="{{ mfa_url_ }}" style="color: #3e2723;">{% trans "Two-Factor Authentication" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'usersessions_list' as usersessions_list_url_ %}
+                        {% if usersessions_list_url_ %}
+                            <li>
+                                <a href="{{ usersessions_list_url_ }}" style="color: #3e2723;">{% trans "Sessions" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'account_logout' as logout_url_ %}
+                        {% if logout_url_ %}
+                            <li>
+                                <a href="{{ logout_url_ }}" style="color: #3e2723;">{% trans "Sign Out" %}</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <!-- Display login/signup options for unauthenticated users -->
+                        {% url 'account_login' as login_url_ %}
+                        {% if login_url_ %}
+                            <li>
+                                <a href="{{ login_url_ }}" style="color: #3e2723;">{% trans "Sign In" %}</a>
+                            </li>
+                        {% endif %}
+                        {% url 'account_signup' as signup_url_ %}
+                        {% if signup_url_ %}
+                            <li>
+                                <a href="{{ signup_url_ }}" style="color: #3e2723;">{% trans "Sign Up" %}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+
+            <section style="background-color: #fff; padding: 30px; border-radius: 8px; margin: 20px;">
+                {% block content %}
+                    <!-- PUT IMAGE HERE: Coffee shop ambiance or featured coffee drink -->
+                    <h2 style="text-align: center; color: #3e2723;">Featured Brews & Pastries</h2>
+                    <p style="text-align: center;">Explore our finest selection of freshly brewed coffee and homemade pastries. We have something for every coffee lover!</p>
+                    <!-- PUT IMAGE HERE: Coffee beans or latte art -->
+                {% endblock content %}
+            </section>
+
+        {% endblock body %}
+
+        <footer style="background-color: #3e2723; color: #fff; padding: 10px 0; text-align: center;">
+            <p>&copy; 2025 Brew & Bloom Café. All rights reserved.</p>
+            <p><a href="#" style="color: #ffcc00;">Contact Us</a></p>
+        </footer>
+
+        {% block extra_body %}
+        {% endblock extra_body %}
+    </body>
+</html>
