@@ -13,31 +13,23 @@ import dj_database_url
 from pathlib import Path
 import os
 import cloudinary_storage
+import cloudinary
+import environ
 
 
-# Import env.py for local development variables
-if os.path.isfile('env.py'):
-    import env # noqa
-
-# Import Cloudinary for media storage
-import cloudinary # noqa
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    '8000-hugoht3-brewandbloom-5xlmasgpezc.ws.codeinstitute-ide.net', 
-    'localhost',
-]  
+    '8000-hugoht3-brewandbloom-5xlmasgpezc.ws.codeinstitute-ide.net']  
 
 
 
@@ -80,7 +72,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-ROOT_URLCONF = 'brew_and_bloom.urls'  # Update the project name
+# ROOT_URLCONF = 'brew_and_bloom.urls'  # Update the project name
 
 TEMPLATES = [
     {
@@ -104,7 +96,7 @@ TEMPLATES = [
 if DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-WSGI_APPLICATION = 'brew_and_bloom.wsgi.application'  # Update the project name
+WSGI_APPLICATION = 'brew_and_bloom.wsgi.application'  
 
 
 # Database
